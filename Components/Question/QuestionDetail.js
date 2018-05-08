@@ -5,31 +5,18 @@ import { Body, Button, Card, CardItem, Container, Content, Left, Right, Text, Th
 import Store from '../Store/Store.js';
 
 export default class QuestionDetail extends Component {
-
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     categories: Store.categories,
-  //   }
-  //   console.log("hi");
-  // // }
-  // //
-  // componentDidMount() {
-  //   Store.categories.forEach(category => {Store.fetchQuestions(category.questions)});
-  // }
-
   render() {
-
     const questionID = this.props.match.params.questionID;
     const question = Store.getQuestionByID(questionID);
+    const category = Store.getCategoryByID(question.category);
 
     return (
       <Container>
         <Content padder>
               <Body>
-                <Text style={{textAlign: 'right', color: '#528D95'}}>{question.category}</Text>
+                <Text style={{textAlign: 'right', color: '#528D95'}}>{category.category_title}</Text>
                 <Text  style = {styles.question}>
-                  {question.question}
+                  {question.question_content}
                   {"\n"}
                 </Text>
                 <Button small style={styles.card} onPress={() => alert("تم حفظ الإجابة")}><Text> جاوب </Text> </Button>

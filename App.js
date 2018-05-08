@@ -1,6 +1,7 @@
-import {Container} from 'native-base';
-import {I18nManager} from 'react-native';
+import { Container } from 'native-base';
 import React, { Component } from 'react';
+import { I18nManager } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 
 import HeaderStyle from './Components/HeaderStyle.js';
@@ -47,3 +48,9 @@ export default class App extends Component {
     );
   }
 }
+
+// const RootStack = StackNavigator({
+//   Home: {
+//     screen: FeedPage,
+//   },
+// });

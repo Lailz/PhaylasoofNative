@@ -2,20 +2,33 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import { Body, Button, Card, CardItem, CheckBox, Container, Content, Form, Icon, Picker, Text, Textarea } from "native-base";
 
+import Store from '../../Store/Store.js';
+
 export default class AskQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected2: undefined,
-      checked: false,
-    };
+      question: "",
+      category: undefined,
+      // anonymousUser: false,
+    }
+    this.ChooseCategory = this.ChooseCategory.bind(this);
+    this.SaveQuestion = this.SaveQuestion.bind(this);
   }
 
-  onValueChange2(category: string) {
-    this.setState({ selected2: category });
+  ChooseCategory(categoryName: string) {
+    this.setState({ category: categoryName });
+  }
+
+  SaveQuestion() {
+    Store.question = this.state.question;
+    Store.category = this.state.category;
+    Store.storeQuestion();
   }
 
   render() {
+    // console.log(Store.category);
+    // console.log(Store.question);
     return (
       <Container>
         <Content padder>
@@ -35,6 +48,8 @@ export default class AskQuestion extends Component {
                       multiline = {true}
                       placeholder = "اكتب سؤالك هنا"
                       placeholderTextColor = "#B4A298"
+                      value = {this.state.question}
+                      onChangeText={(e) => this.setState({question: e})}
                     />
               </Body>
             </CardItem>
@@ -48,28 +63,30 @@ export default class AskQuestion extends Component {
                         placeholder="اختر مجال سؤالك"
                         placeholderTextColor = "#B4A298"
                         placeholderIconColor="#B4A298"
-                        selectedValue={this.state.selected2}
-                        onValueChange={this.onValueChange2.bind(this)}
+                        selectedValue={this.state.category}
+                        onValueChange={this.ChooseCategory}
                         >
-                        <Picker.Item style={styles.card} label="علوم البحار" value="key0" />
-                        <Picker.Item style={styles.card} label="البيولوجيا" value="key1" />
-                        <Picker.Item style={styles.card} label="الرياضيات" value="key2" />
-                        <Picker.Item label="الهندسة" value="key3" />
-                        <Picker.Item label="الفيزياء النووية" value="key4" />
+                        <Picker.Item label="علوم البحار"      value="key0" />
+                        <Picker.Item label="البيولوجيا"       value="key1" />
+                        <Picker.Item label="الرياضيات"        value="key2" />
+                        <Picker.Item label="الهندسة"          value="key3" />
+                        <Picker.Item label="الفيزياء النووية"  value="key4" />
+                        <Picker.Item label="الفلسفة"          value="2" />
+
                 </Picker>
               </Form>
             </CardItem>
-            <CardItem>
+            {/* <CardItem>
               <CheckBox
                 title="Press me"
                 color='#528D95'
-                checked={this.state.checked}
-                onPress={() => this.setState({ checked: !this.state.checked })}
+                checked={this.state.anonymousUser}
+                onPress={() => this.setState({ anonymousUser: !this.state.anonymousUser })}
               />
               <Text>   مجهول</Text>
-            </CardItem>
+            </CardItem> */}
             <CardItem button>
-              <Button small style={styles.card} onPress={() => alert("تم حفظ السؤال")}><Text> اسأل </Text> </Button>
+              <Button small style={styles.card} onPress={this.SaveQuestion}><Text> اسأل </Text> </Button>
               <Text>  </Text>
               <Button small style={styles.cancel}><Text> إلغاء </Text> </Button>
             </CardItem>
@@ -86,6 +103,9 @@ const styles = StyleSheet.create({
   },
   cancel: {
     backgroundColor: '#FCE5C5',
+  },
+  anonymous: {
+    color: '#528D95',
   },
   later: {
     color: '#C9BDA7',

@@ -19,9 +19,7 @@ export default observer(class SigninPage extends Component {
   SigninUser() {
     Store.username = this.state.username;
     Store.password = this.state.password;
-    console.log(Store.isLoggedIn);
     Store.signin();
-    console.log(Store.isLoggedIn);
   }
 
   render() {

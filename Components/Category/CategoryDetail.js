@@ -7,33 +7,22 @@ import Store from '../Store/Store.js';
 import QuestionCard from '../Question/Cards/QuestionCard.js';
 
 export default observer(class CategoryDetail extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      category: Store.getCategoryByID(this.props.match.params.categoryID)
-    }
-  }
-
-  componentDidMount() {
-    Store.fetchQuestions(this.state.category.questions);
-  }
-
   render() {
-    const questions = Store.apiquestions;
-    console.log(questions);
+    const categoryID = this.props.match.params.categoryID;
+    const category = Store.getCategoryByID(categoryID);
     return (
       <Container>
-        <Content >
+        <Content padder >
               <Body>
                 {/* <Thumbnail bordered source={{uri: this.state.category.image}}/> */}
-                <Text style={{textAlign: 'right', color: '#528D95'}}>{this.state.category.category_title}</Text>
+                <Text style={styles.title}>{category.category_title}</Text>
                 <Text  style = {{color: '#528D95'}}>
-                  {this.state.category.category_description}
+                  {category.category_description}
                   {"\n"}
                 </Text>
                 <Button small style={styles.card}><Text> تابع </Text></Button>
                 <List
-                    dataArray={questions.slice()}
+                    dataArray={category.questions.slice()}
                     renderRow={(question) => <QuestionCard question={question} />}
                 />
               </Body>
@@ -44,6 +33,13 @@ export default observer(class CategoryDetail extends Component {
 })
 
 const styles = StyleSheet.create({
+  title: {
+    textAlign: 'right',
+    color: '#528D95',
+    fontSize: 20,
+    marginTop: 10,
+    marginBottom: 15,
+  },
   card: {
     backgroundColor: '#B4A298',
   },

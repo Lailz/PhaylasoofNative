@@ -19,11 +19,11 @@ export default observer(class UserProfile extends Component {
   }
 
   render() {
-    console.log(Store.currentUser);
+    // console.log(Store.currentUser);
     return (
         <View style={styles.container}>
           <Text style={styles.title}>حسابك</Text>
-          {/* <Text style={styles.text}>اسم المستخدم: {this.state.username}</Text> */}
+          <Text style={styles.text}>اسم المستخدم: {this.state.username}</Text>
           {/* <Text style={styles.text}>الاسم: {this.state.firstname} {this.state.lastname}</Text>
           <Text style={styles.text}>البريد الإلكتروني: {this.state.email}</Text> */}
           <TouchableOpacity style={styles.buttonstyle} onPress={this.Signout}>

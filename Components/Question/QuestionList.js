@@ -10,18 +10,15 @@ export default observer(class QuestionList extends Component {
 
 
   render() {
-        // const questions = Store.categories.map(category => Store.fetchQuestions(category.id));
-        console.log(Store.questions);
-
-        return (
-          <Container>
-            <Content>
-              <List
-                dataArray={Store.questions.slice()}
-                renderRow={(question) => <QuestionCard question={question} />}
-              />
-            </Content>
-          </Container>
-        );
-      }
-    })
+    return (
+      <Container>
+        <Content>
+          <List
+            dataArray={Store.questions.slice()}
+            renderRow={(question) => <QuestionCard question={question} />}
+          />
+        </Content>
+      </Container>
+    );
+  }
+})
