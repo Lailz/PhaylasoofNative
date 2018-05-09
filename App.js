@@ -1,9 +1,9 @@
 import { Container } from 'native-base';
 import React, { Component } from 'react';
 import { I18nManager } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 
+import FeedPage from './Components/FeedPage.js';
 import HeaderStyle from './Components/HeaderStyle.js';
 import FooterStyle from './Components/FooterStyle.js';
 
@@ -17,9 +17,9 @@ import QuestionDetail from './Components/Question/QuestionDetail.js';
 import AskQuestionCard from './Components/Question/Cards/AskQuestionCard.js';
 import AnswerQuestionCard from './Components/Answer/AnswerQuestionCard.js';
 
-import FeedPage from './Components/FeedPage.js';
 import CategoryList from './Components/Category/CategoryList.js';
 import CategoryDetail from './Components/Category/CategoryDetail.js';
+import CategoryFollowersList from './Components/Category/Followers/CategoryFollowersList.js';
 
 I18nManager.forceRTL(true);
 
@@ -44,6 +44,8 @@ export default class App extends Component {
 
             <Route path='/categorylist' component={CategoryList} />
             <Route path='/categorydetail/:categoryID' component={CategoryDetail} />
+            <Route path='/categoryfollowerslist' component={CategoryFollowersList} />
+
           </Switch>
           <FooterStyle />
         </Container>
@@ -51,9 +53,3 @@ export default class App extends Component {
     );
   }
 }
-
-// const RootStack = StackNavigator({
-//   Home: {
-//     screen: FeedPage,
-//   },
-// });

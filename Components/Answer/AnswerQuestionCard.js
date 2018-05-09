@@ -1,3 +1,4 @@
+import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { Link } from 'react-router-native';
 import { StyleSheet, TextInput } from 'react-native';
@@ -5,7 +6,7 @@ import { Body, Button, Card, CardItem, CheckBox, Container, Content, Form, Icon,
 
 import Store from '../Store/Store.js';
 
-export default class AskQuestion extends Component {
+export default observer(class AskQuestion extends Component {
   render() {
     return (
       <Container>
@@ -41,7 +42,7 @@ export default class AskQuestion extends Component {
       </Container>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   card: {

@@ -10,7 +10,7 @@ export default observer(class QuestionCard extends Component {
   render() {
 
     const question = this.props.question;
-    
+
     return (
         <Content padder>
           <Card>
@@ -21,7 +21,7 @@ export default observer(class QuestionCard extends Component {
             </Link>
             <Link to={`/questiondetail/${question.id}`} component={CardItem} button>
               <Body>
-                  <Text  style = {{color: '#528D95'}}>
+                  <Text  style = {styles.content}>
                     {question.question_content}
                   </Text>
               </Body>
@@ -41,13 +41,13 @@ export default observer(class QuestionCard extends Component {
 })
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#B4A298',
-  },
   category: {
     textAlign: 'right',
     color: '#528D95',
     fontSize: 14,
+  },
+  content: {
+    color: '#528D95',
   },
   numberofanswers: {
     color: '#C9BDA7',

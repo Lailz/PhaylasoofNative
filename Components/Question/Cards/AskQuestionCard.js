@@ -8,9 +8,7 @@ export default class AskQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: "",
-      category: undefined,
-      // anonymousUser: false,
+      category: "",
     }
     this.ChooseCategory = this.ChooseCategory.bind(this);
     this.SaveQuestion = this.SaveQuestion.bind(this);
@@ -21,7 +19,6 @@ export default class AskQuestion extends Component {
   }
 
   SaveQuestion() {
-    Store.question = this.state.question;
     Store.category = this.state.category;
     Store.storeQuestion();
   }
@@ -33,7 +30,7 @@ export default class AskQuestion extends Component {
           <Card>
             <CardItem>
               <Body>
-                  <Text style = {{color: '#528D95'}}>اسأل مجرباً ولا تسأل حكيماً</Text>
+                  <Text style = {styles.title}>اسأل مجرباً ولا تسأل حكيماً</Text>
               </Body>
             </CardItem>
             <CardItem>
@@ -46,8 +43,8 @@ export default class AskQuestion extends Component {
                       multiline = {true}
                       placeholder = "اكتب سؤالك هنا"
                       placeholderTextColor = "#B4A298"
-                      value = {this.state.question}
-                      onChangeText={(e) => this.setState({question: e})}
+                      value = {Store.question}
+                      onChangeText={(e) => {Store.question = e}}
                     />
               </Body>
             </CardItem>
@@ -86,14 +83,14 @@ export default class AskQuestion extends Component {
 }
 
 const styles = StyleSheet.create({
+  anonymous: {
+    color: '#528D95',
+  },
   card: {
     backgroundColor: '#B4A298',
   },
   cancel: {
     backgroundColor: '#FCE5C5',
-  },
-  anonymous: {
-    color: '#528D95',
   },
   later: {
     color: '#C9BDA7',
@@ -104,5 +101,8 @@ const styles = StyleSheet.create({
     width: 325,
     borderColor: '#B4A298',
     textAlign: 'right'
+  },
+  title: {
+    color: '#528D95',
   },
 })

@@ -20,9 +20,7 @@ export default observer(class AnswerCard extends Component {
               <Text style = {styles.user}>{answer.user}</Text>
             </CardItem>
             <CardItem>
-              {/* <Timestamp time={answer.timestamp} /> */}
               <Timestamp time={answer.timestamp} component={Text} />
-              {/* <Text >{answer.timestamp}</Text> */}
             </CardItem>
           </Card>
     );
@@ -37,14 +35,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: '#528D95',
     fontSize: 14,
-  },
-  numberofanswers: {
-    color: '#C9BDA7',
-    fontSize: 14,
-  },
-  later: {
-    color: '#C9BDA7',
-    fontSize: 12,
   },
   user: {
     color: '#739B93',

@@ -45,8 +45,6 @@ export default observer(class QuestionDetail extends Component {
                     renderRow={(answer) => <AnswerCard answer={answer} />}
                   />
                 </Body>
-
-
         </Content>
       </Container>
     );

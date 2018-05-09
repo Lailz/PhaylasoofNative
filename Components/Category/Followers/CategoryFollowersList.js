@@ -3,19 +3,22 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Content, List, Text } from "native-base";
 
-import CategoryCard from './CategoryCard.js';
-import Store from '../Store/Store.js';
+import Store from '../../Store/Store.js';
 
 
-export default observer(class CategoryList extends Component {
+export default observer(class CategoryFollowersList extends Component {
   render() {
     return (
       <Container>
-        <Text style={styles.intro}>أهلاً بك في عالم المتفلسفين</Text>
+        <Text style={styles.intro}>المتابعون</Text>
           <Content padder>
             <List
-              dataArray={Store.categories.slice()}
-              renderRow={(category) => <CategoryCard category={category} />}
+              dataArray={Store.categoryFollowers.slice()}
+              renderRow={(follower) => {
+                return (
+                  <Text>{follower.id}</Text>
+                )
+              }}
             />
           </Content>
       </Container>

@@ -9,12 +9,13 @@ class myStore {
       currentUser : "",
       token : "",
       error : [],
+
       username : "",
-      user : "",
       password : "",
       firstname: "",
       lastname : "",
       email : "",
+      user : "",
 
       category : "",
       question : "",
@@ -31,6 +32,10 @@ class myStore {
         });
         return flatQuestions;
       },
+
+      categoryFollowers : [],
+      userFollowers : [],
+      userFollowing : [],
     })
   }
 
@@ -104,6 +109,15 @@ class myStore {
       .catch(err => console.error(err));
       }
 
+  getCategoryByID(id) {
+    const categoryIndex = this.categories.findIndex(category => category.id == id);
+    if(typeof this.categories[categoryIndex].questions === 'string') {
+      this.fetchQuestions(this.categories[categoryIndex].questions)
+        .then(questions => this.categories[categoryIndex].questions = questions)
+      }
+      return this.categories[categoryIndex];
+    }
+
   // fetchCategories() {
   //   return axios.get('http://127.0.0.1:8000/api/category_list/')
   //   .then(res => res.data)
@@ -124,17 +138,6 @@ class myStore {
       .catch(err => console.error(err));
     }
 
-  fetchAnswers(answersUrl) {
-    if(typeof answersUrl === 'string') {
-      return axios.get(answersUrl)
-        .then(res => res.data)
-        .then(answers => {
-          this.answers = answers;
-        })
-        .catch(err => console.error(err));
-      }
-    }
-
   storeQuestion() {
     const ask = { question_content: this.question,
       user: this.user.user_id,
@@ -148,9 +151,24 @@ class myStore {
       .then(question_content => {
         this.questions.push(ask);
         this.resetForm();
-    })
+      })
       .catch(err => console.error(err));
   }
+
+  getQuestionByID(id) {
+    return this.questions.find(question => question.id == id);
+  }
+
+  fetchAnswers(answersUrl) {
+    if(typeof answersUrl === 'string') {
+      return axios.get(answersUrl)
+        .then(res => res.data)
+        .then(answers => {
+          this.answers = answers;
+        })
+        .catch(err => console.error(err));
+      }
+    }
 
   storeAnswer() {
     const answer = {
@@ -169,32 +187,19 @@ class myStore {
       })
       .catch(err => console.error(err));
     }
-    getQuestionByID(id) {
-      return this.questions.find(question => question.id == id);
-    }
 
-    // getCategoryByID(id) {
-    //   return this.categories.find(category => category.id == id);
-    // }
-
-    getCategoryByID(id) {
-      const categoryIndex = this.categories.findIndex(category => category.id == id);
-      if(typeof this.categories[categoryIndex].questions === 'string') {
-        this.fetchQuestions(this.categories[categoryIndex].questions)
-          .then(questions => this.categories[categoryIndex].questions = questions)
-      }
-      return this.categories[categoryIndex];
-    }
-
-    // getAnswerByID(id) {
-    //   const questionIndex = this.answers.findIndex(answer => answer.id == id);
-    //   if(typeof this.questions[questionIndex].answers === 'string') {
-    //     this.fetchAnswers(this.questions[questionIndex].answers)
-    //       .then(answers => this.questions[questionIndex].answers = answers)
-    //   }
-    //   return this.questions[questionIndex];
-    // }
+  fetchCategoryFollowers(categoryFollowersUrl) {
+    return axios.get(categoryFollowersUrl)
+      .then(res => res.data)
+      .then(followers => {
+        this.categoryFollowers = followers;
+      })
+      .catch(err => console.error(err));
   }
+
+  }
+
+
 
   const Store =  new myStore()
   Store.fetchCategories()
