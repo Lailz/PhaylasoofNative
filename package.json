@@ -30,6 +30,7 @@
     "react-native": "~0.55.2",
     "react-native-linear-gradient": "^2.4.0",
     "react-navigation": "^2.0.0-rc.9",
-    "react-router-native": "^4.2.0"
+    "react-router-native": "^4.2.0",
+    "react-timestamp": "^4.4.0"
   }
 }

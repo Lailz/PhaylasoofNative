@@ -27,8 +27,6 @@ export default class AskQuestion extends Component {
   }
 
   render() {
-    // console.log(Store.category);
-    // console.log(Store.question);
     return (
       <Container>
         <Content padder>
@@ -66,25 +64,15 @@ export default class AskQuestion extends Component {
                         selectedValue={this.state.category}
                         onValueChange={this.ChooseCategory}
                         >
+                        <Picker.Item label="الرياضيات"        value="1" />
+                        <Picker.Item label="الفلسفة"          value="2" />
                         <Picker.Item label="علوم البحار"      value="key0" />
                         <Picker.Item label="البيولوجيا"       value="key1" />
-                        <Picker.Item label="الرياضيات"        value="key2" />
                         <Picker.Item label="الهندسة"          value="key3" />
                         <Picker.Item label="الفيزياء النووية"  value="key4" />
-                        <Picker.Item label="الفلسفة"          value="2" />
-
                 </Picker>
               </Form>
             </CardItem>
-            {/* <CardItem>
-              <CheckBox
-                title="Press me"
-                color='#528D95'
-                checked={this.state.anonymousUser}
-                onPress={() => this.setState({ anonymousUser: !this.state.anonymousUser })}
-              />
-              <Text>   مجهول</Text>
-            </CardItem> */}
             <CardItem button>
               <Button small style={styles.card} onPress={this.SaveQuestion}><Text> اسأل </Text> </Button>
               <Text>  </Text>

@@ -7,32 +7,17 @@ import Store from '../Store/Store.js';
 
 
 export default observer(class SigninPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: "",
-      password: "",
-    }
-    this.SigninUser = this.SigninUser.bind(this);
-  }
-
-  SigninUser() {
-    Store.username = this.state.username;
-    Store.password = this.state.password;
-    Store.signin();
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>تسجيل الدخول</Text>
         <TextInput style={styles.textinput} placeholder="اسم المستخدم" placeholderTextColor='#739B93'
-                   value={this.state.username}
-                   onChangeText={(e) => this.setState({username: e})}/>
+                   value={Store.username}
+                   onChangeText={(e) => {Store.username = e}}/>
         <TextInput style={styles.textinput} placeholder="كلمة السر" placeholderTextColor='#739B93' secureTextEntry={true}
-                   value={this.state.password}
-                   onChangeText={(e) => this.setState({password: e})}/>
-        <TouchableOpacity style={styles.buttonstyle} onPress={this.SigninUser}>
+                   value={Store.password}
+                   onChangeText={(e) => {Store.password = e}}/>
+        <TouchableOpacity style={styles.buttonstyle} onPress={() => Store.signin()}>
           <Text style={styles.buttontext}>سجل دخولك</Text>
         </TouchableOpacity>
         <Link to='/signup' component={Button} transparent>
@@ -50,6 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'white',
     paddingRight: 60,
     paddingLeft: 60,
@@ -58,11 +44,13 @@ const styles = StyleSheet.create({
   title: {
     color: '#528D95',
     fontSize: 24,
+    marginBottom: 20,
     borderBottomColor: '#528D95',
   },
 
   textinput: {
     alignSelf: 'stretch',
+    textAlign: 'right',
     height: 40,
     marginBottom: 30,
     color: '#528D95',
@@ -86,8 +74,6 @@ const styles = StyleSheet.create({
 
   register: {
     color: '#528D95',
-    alignSelf: 'stretch',
-    alignItems: 'center',
     marginTop: 15,
   },
   }

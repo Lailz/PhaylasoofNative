@@ -3,8 +3,6 @@ import { extendObservable } from "mobx";
 import { AsyncStorage } from 'react-native';
 import jwt_decode from 'jwt-decode';
 
-import laila from '../../images/laila.jpg';
-
 class myStore {
   constructor() {
     extendObservable(this, {
@@ -18,8 +16,9 @@ class myStore {
       lastname : "",
       email : "",
 
-      question : "",
       category : "",
+      question : "",
+      answer : "",
 
       categories : [],
       answers: [],
@@ -32,15 +31,6 @@ class myStore {
         });
         return flatQuestions;
       },
-      // get answers() {
-      //   let flatAnswers = [];
-      //   this.questions.forEach(question => {
-      //     if(typeof question.answers !== 'string') {
-      //       question.answers.forEach(answer => flatAnswers.push(answer));
-      //     }
-      //   });
-      //   return flatQuestions;
-      // },
     })
   }
 
@@ -58,12 +48,7 @@ class myStore {
       this.resetForm();
     })
     .catch(err => {
-      Object.entries(err.response.data).forEach(
-        ([errType, errList]) =>
-          this.error = this.error.concat(errList.map(
-            message => <p key={errType+message}><strong>{errType}:</strong> {message}</p>
-          ))
-        );
+      console.log(err.response.data)
       });
   }
 
@@ -98,37 +83,40 @@ class myStore {
   resetForm() {
     this.error = [];
     this.username = "";
+    this.firstname = "";
+    this.lastname = "";
     this.password = "";
     this.question = "";
     this.category = "";
+    this.answer = "";
   }
 
   get isLoggedIn() {
     return !!this.token;
   }
 
-// fetchCategories() {
-  //   return axios.get('http://127.0.0.1:8000/api/category_list/')
-  //     .then(res => res.data)
-  //     .then(categories => {
-  //       this.categories = categories;
-  //     })
-  //     .catch(err => console.error(err));
-  //     }
-
   fetchCategories() {
     return axios.get('http://127.0.0.1:8000/api/category_list/')
-    .then(res => res.data)
-    .then(categories => {
-      this.categories = categories;
-    })
-    //   return axios.all(categories.map(category => this.fetchQuestions(category.questions)))
-    // })
-    // .then(questionsArray => questionsArray.forEach((questionList, idx) => {
-    //   this.categories[idx].questions = questionList;
-    // }))
-    .catch(err => console.error(err));
-  }
+      .then(res => res.data)
+      .then(categories => {
+        this.categories = categories;
+      })
+      .catch(err => console.error(err));
+      }
+
+  // fetchCategories() {
+  //   return axios.get('http://127.0.0.1:8000/api/category_list/')
+  //   .then(res => res.data)
+  //   .then(categories => {
+  //     this.categories = categories;
+  //   })
+  //     return axios.all(categories.map(category => this.fetchQuestions(category.questions)))
+  //   })
+  //   .then(questionsArray => questionsArray.forEach((questionList, idx) => {
+  //     this.categories[idx].questions = questionList;
+  //   }))
+  //   .catch(err => console.error(err));
+  // }
 
   fetchQuestions(questionsUrl) {
     return axios.get(questionsUrl)
@@ -137,31 +125,50 @@ class myStore {
     }
 
   fetchAnswers(answersUrl) {
-    return axios.get(answersUrl)
-      .then(res => res.data)
-      .then(answers => {
-        this.answers = answers;
-      })
-      .catch(err => console.error(err));
-  }
+    if(typeof answersUrl === 'string') {
+      return axios.get(answersUrl)
+        .then(res => res.data)
+        .then(answers => {
+          this.answers = answers;
+        })
+        .catch(err => console.error(err));
+      }
+    }
 
   storeQuestion() {
     const ask = { question_content: this.question,
-    user: this.user.user_id,
-    category: this.category }
-    console.log(ask);
+      user: this.user.user_id,
+      category: this.category }
+      console.log(ask);
     return axios.post('http://127.0.0.1:8000/api/question/create/',
-    ask,
-    {headers: {Authorization: `JWT ${this.token}`}},
-  )
-    .then(res => res.data)
-    .then(question_content => {
-      console.log(question_content);
-      this.resetForm();
+      ask,
+      {headers: {Authorization: `JWT ${this.token}`}},
+    )
+      .then(res => res.data)
+      .then(question_content => {
+        this.questions.push(ask);
+        this.resetForm();
     })
-    .catch(err => console.error(err));
+      .catch(err => console.error(err));
   }
 
+  storeAnswer() {
+    const answer = {
+      answer_content: this.answer,
+      user: this.user.user_id,
+      question: this.question }
+    console.log(answer);
+    return axios.post('http://127.0.0.1:8000/api/answer/create/',
+      answer,
+      {headers: {Authorization: `JWT ${this.token}`}},
+    )
+      .then(res => res.data)
+      .then(answer_content => {
+        this.answers.push(answer);
+        this.resetForm();
+      })
+      .catch(err => console.error(err));
+    }
     getQuestionByID(id) {
       return this.questions.find(question => question.id == id);
     }

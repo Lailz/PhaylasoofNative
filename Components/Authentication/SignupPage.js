@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     backgroundColor: 'white',
+    alignItems: 'center',
     paddingRight: 60,
     paddingLeft: 60,
   },
@@ -59,13 +60,14 @@ const styles = StyleSheet.create({
     color: '#528D95',
     fontSize: 24,
     borderBottomColor: '#528D95',
-    marginBottom: 10,
+    marginBottom: 20,
   },
 
   textinput: {
     alignSelf: 'stretch',
+    textAlign: 'right',
     height: 40,
-    marginBottom: 30,
+    marginBottom: 25,
     color: '#528D95',
     borderBottomColor: '#528D95',
     borderBottomWidth: 1,
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: '#528D95',
-    marginTop: 30,
+    marginTop: 25,
   },
 
   buttontext: {
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     color: '#528D95',
     alignSelf: 'stretch',
     alignItems: 'center',
+    textAlign: 'center',
     marginTop: 15,
   },
   }

@@ -8,14 +8,9 @@ import Store from '../../Store/Store.js';
 export default observer(class QuestionCard extends Component {
 
   render() {
-    const question = this.props.question;
-    console.log(question.answers);
-    if(question.answers){
-      const answers = Store.fetchAnswers(question.answers);
-      console.log(answers);
-    }
-    // const answers = Store.fetchAnswers(question.answers)
 
+    const question = this.props.question;
+    
     return (
         <Content padder>
           <Card>
@@ -35,18 +30,10 @@ export default observer(class QuestionCard extends Component {
                 <Text style={styles.numberofanswers}>{question.numberOfAnswers} أجوبة</Text>
             </Link>
             <CardItem button>
-              <Button small style={styles.card}><Text> جاوب </Text></Button>
+              <Link to={'/answerquestion'} component={Button} small style={styles.card}><Text> جاوب </Text></Link>
               <Text>    </Text>
               <Text style={styles.later}> جاوب لاحقاً </Text>
             </CardItem>
-            {/* <CardItem > */}
-              {/* <List
-                  dataArray={answers}
-                  renderRow={(answer) => {return (
-                    <Text> {answer.answer_content}</Text>
-                  )}}
-              />
-            </CardItem> */}
           </Card>
         </Content>
     );

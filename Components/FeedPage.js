@@ -10,7 +10,6 @@ import Store from './Store/Store.js';
 
 export default observer(class FeedPage extends Component {
   render() {
-    // console.log(Store.questions);
     return (
       <Container>
         <Text style={styles.intro}>أهلاً بك في عالم المتفلسفين</Text>

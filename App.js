@@ -12,8 +12,10 @@ import SignupPage from './Components/Authentication/SignupPage.js';
 import ProfilePage from './Components/Authentication/ProfilePage.js';
 
 import QuestionList from './Components/Question/QuestionList.js';
-import AskQuestionCard from './Components/Question/Cards/AskQuestionCard.js';
 import QuestionDetail from './Components/Question/QuestionDetail.js';
+
+import AskQuestionCard from './Components/Question/Cards/AskQuestionCard.js';
+import AnswerQuestionCard from './Components/Answer/AnswerQuestionCard.js';
 
 import FeedPage from './Components/FeedPage.js';
 import CategoryList from './Components/Category/CategoryList.js';
@@ -38,6 +40,7 @@ export default class App extends Component {
             <Route path='/questiondetail/:questionID' component={QuestionDetail} />
 
             <Route path='/askquestion' component={AskQuestionCard} />
+            <Route path='/answerquestion' component={AnswerQuestionCard} />
 
             <Route path='/categorylist' component={CategoryList} />
             <Route path='/categorydetail/:categoryID' component={CategoryDetail} />
