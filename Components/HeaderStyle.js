@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Link } from 'react-router-native';
+import { Link, withRouter } from 'react-router-native';
 import { Body, Button, Header, Icon, Title } from 'native-base';
 
-export default class HeaderStyle extends Component {
+export default withRouter(class HeaderStyle extends Component {
   render() {
     return (
         <Header style={styles.headerstyle}>
-            <Link to='/' component={Button} transparent >
+            <Button onPress={() => this.props.history.goBack()} transparent >
               <Icon style={styles.icon} name='arrow-forward' />
-            </Link>
+            </Button>
             <Body>
               <Link to='/' component={Button} transparent>
                 <Title style={styles.icon}>فيلسوف</Title>
@@ -21,7 +21,7 @@ export default class HeaderStyle extends Component {
         </Header>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   headerstyle: {

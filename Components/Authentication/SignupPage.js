@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-native';
+import { Link } from 'react-router-native';
 import {observer} from 'mobx-react';
 
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -14,13 +14,13 @@ export default observer(class SignupPage extends Component {
           <TextInput style={styles.textinput} placeholder="اسم المستخدم" placeholderTextColor='#739B93'
                      value={Store.username}
                      onChangeText={(e) => {Store.username = e}}/>
-          <TextInput style={styles.textinput} placeholder="الاسم الأول" placeholderTextColor='#739B93'
+          <TextInput style={styles.textinput} placeholder="الاسم الأول (اختياري)" placeholderTextColor='#739B93'
                      value={Store.firstname}
                      onChangeText={(e) => {Store.firstname = e}} />
-          <TextInput style={styles.textinput} placeholder="اسم العائلة" placeholderTextColor='#739B93'
+          <TextInput style={styles.textinput} placeholder="اسم العائلة (اختياري)" placeholderTextColor='#739B93'
                      value={Store.lastname}
                      onChangeText={(e) => {Store.lastname = e}} />
-          <TextInput style={styles.textinput} placeholder="البريد الإلكتروني" placeholderTextColor='#739B93'
+          <TextInput style={styles.textinput} placeholder="البريد الإلكتروني (اختياري)" placeholderTextColor='#739B93'
                      value={Store.email}
                      onChangeText={(e) => {Store.email = e}} />
           <TextInput style={styles.textinput} placeholder="كلمة السر" placeholderTextColor='#739B93' secureTextEntry={true}

@@ -8,20 +8,18 @@ import Store from '../../Store/Store.js';
 export default observer(class QuestionCard extends Component {
 
   render() {
-
     const question = this.props.question;
-
     return (
         <Content padder>
           <Card>
-            <Link to={`/categorydetail/${question.category}`} component={CardItem} button>
+            <Link to={`/categorydetail/${question.category.id}`} component={CardItem} button>
               <Body>
-                <Text style={styles.category}>{question.category}</Text>
+                <Text style={styles.category}>{question.category_title}</Text>
               </Body>
             </Link>
             <Link to={`/questiondetail/${question.id}`} component={CardItem} button>
               <Body>
-                  <Text  style = {styles.content}>
+                  <Text style = {styles.content}>
                     {question.question_content}
                   </Text>
               </Body>
@@ -41,20 +39,24 @@ export default observer(class QuestionCard extends Component {
 })
 
 const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#B4A298',
+  },
   category: {
     textAlign: 'right',
     color: '#528D95',
     fontSize: 14,
   },
   content: {
+    textAlign: 'right',
     color: '#528D95',
-  },
-  numberofanswers: {
-    color: '#C9BDA7',
-    fontSize: 14,
   },
   later: {
     color: '#C9BDA7',
     fontSize: 12,
+  },
+  numberofanswers: {
+    color: '#C9BDA7',
+    fontSize: 14,
   },
 })

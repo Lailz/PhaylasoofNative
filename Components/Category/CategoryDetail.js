@@ -10,6 +10,7 @@ export default observer(class CategoryDetail extends Component {
   render() {
     const categoryID = this.props.match.params.categoryID;
     const category = Store.getCategoryByID(categoryID);
+    const questions = typeof category.questions === 'string' ? [] : category.questions.slice();
     return (
       <Container>
         <Content padder >
@@ -21,9 +22,8 @@ export default observer(class CategoryDetail extends Component {
                   {"\n"}
                 </Text>
                 <Button small style={styles.card}><Text> تابع </Text></Button>
-                <List
-                    dataArray={category.questions.slice()}
-                    renderRow={(question) => <QuestionCard question={question} />}
+                <List dataArray = {questions}
+                      renderRow = {(question) => <QuestionCard question={question} />}
                 />
               </Body>
         </Content>

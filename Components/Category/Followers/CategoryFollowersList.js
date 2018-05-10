@@ -7,20 +7,28 @@ import Store from '../../Store/Store.js';
 
 
 export default observer(class CategoryFollowersList extends Component {
+  constructor(props) {
+    super(props);
+    const followers = Store.categoryFollowers;
+    this.state = {
+      followers : followers,
+    }
+  }
+
   render() {
+    // console.log(this.state.followers);
     return (
       <Container>
         <Text style={styles.intro}>المتابعون</Text>
-          <Content padder>
-            <List
-              dataArray={Store.categoryFollowers.slice()}
-              renderRow={(follower) => {
-                return (
-                  <Text>{follower.id}</Text>
-                )
-              }}
-            />
-          </Content>
+        <Content padder>
+          <List dataArray={this.state.followers}
+                renderRow={(follower) => {
+                  return (
+                    <Text>{follower.follower.email}</Text>
+                  )
+                }}
+          />
+        </Content>
       </Container>
     );
   }

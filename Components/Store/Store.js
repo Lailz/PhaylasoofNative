@@ -19,6 +19,7 @@ class myStore {
 
       category : "",
       question : "",
+      questionid : "",
       answer : "",
 
       categories : [],
@@ -38,6 +39,7 @@ class myStore {
       userFollowing : [],
     })
   }
+
 
   register() {
     console.log(this.username);
@@ -101,7 +103,7 @@ class myStore {
   }
 
   fetchCategories() {
-    return axios.get('http://127.0.0.1:8000/api/category_list/')
+    return axios.get('http://127.0.0.1:8000/api/category/list/')
       .then(res => res.data)
       .then(categories => {
         this.categories = categories;
@@ -111,6 +113,7 @@ class myStore {
 
   getCategoryByID(id) {
     const categoryIndex = this.categories.findIndex(category => category.id == id);
+    console.log(this.categories)
     if(typeof this.categories[categoryIndex].questions === 'string') {
       this.fetchQuestions(this.categories[categoryIndex].questions)
         .then(questions => this.categories[categoryIndex].questions = questions)
@@ -197,6 +200,9 @@ class myStore {
       .catch(err => console.error(err));
   }
 
+  getFollowersByCategoryID(id) {
+    return this.categoryFollowers.find(follower => follower.category == id);
+  }
   }
 
 

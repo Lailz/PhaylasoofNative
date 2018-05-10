@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-native';
 import { StyleSheet, TextInput } from 'react-native';
 import { Body, Button, Card, CardItem, CheckBox, Container, Content, Form, Icon, Picker, Text, Textarea } from "native-base";
 
@@ -20,7 +21,9 @@ export default class AskQuestion extends Component {
 
   SaveQuestion() {
     Store.category = this.state.category;
-    Store.storeQuestion();
+    Store.storeQuestion().then(
+      () => this.props.history.push(`/categorydetail/${this.state.category}`)
+    )
   }
 
   render() {
@@ -71,7 +74,7 @@ export default class AskQuestion extends Component {
               </Form>
             </CardItem>
             <CardItem button>
-              <Button small style={styles.card} onPress={this.SaveQuestion}><Text> اسأل </Text> </Button>
+              <Link onPress={() => this.SaveQuestion()} component={Button} small style={styles.card} ><Text> اسأل </Text> </Link>
               <Text>  </Text>
               <Button small style={styles.cancel}><Text> إلغاء </Text> </Button>
             </CardItem>

@@ -10,17 +10,16 @@ export default observer(class AnswerCard extends Component {
 
   render() {
     const answer = this.props.answer;
-    console.log(answer);
     return (
           <Card>
             <CardItem>
               <Text style = {styles.answer}>{answer.answer_content}</Text>
             </CardItem>
             <CardItem>
-              <Text style = {styles.user}>{answer.user}</Text>
+              <Text style = {styles.user}>{answer.user.username}</Text>
             </CardItem>
             <CardItem>
-              <Timestamp time={answer.timestamp} component={Text} />
+              <Timestamp style={styles.time} time={answer.timestamp} component={Text} />
             </CardItem>
           </Card>
     );
@@ -28,13 +27,17 @@ export default observer(class AnswerCard extends Component {
 })
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#B4A298',
-  },
   answer: {
     textAlign: 'right',
     color: '#528D95',
     fontSize: 14,
+  },
+  card: {
+    backgroundColor: '#B4A298',
+  },
+  time: {
+    color: '#739B93',
+    fontSize: 12,
   },
   user: {
     color: '#739B93',

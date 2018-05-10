@@ -8,13 +8,9 @@ import Store from '../Store/Store.js';
 
 export default observer(class CategoryCard extends Component {
 
-  componentDidMount() {
-    Store.fetchCategoryFollowers(this.props.category.followers)
-  }
 
   render() {
-    const {category} = this.props;
-    console.log(Store.categoryFollowers.length);
+    const category = this.props.category;
     return (
           <Card>
             <Link to={`/categorydetail/${category.id}`} component={CardItem} button >
@@ -25,11 +21,11 @@ export default observer(class CategoryCard extends Component {
             </Link>
             <CardItem>
               <Link to={`/categorydetail/${category.id}`} component={Text} button>
-                <Text style={styles.numberofquestions}> سؤال</Text>
+                <Text style={styles.numberofquestions}>{category.questions_number} سؤال</Text>
               </Link>
                 <Text>{"\t"}</Text>
               <Link to='/categoryfollowerslist' component={Text} button>
-                <Text style={styles.numberofquestions}>{Store.categoryFollowers.length} متابع</Text>
+                <Text style={styles.numberofquestions}>{category.followers_number} متابع</Text>
               </Link>
             </CardItem>
             <CardItem button>

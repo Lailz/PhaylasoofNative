@@ -9,13 +9,13 @@ import Store from '../Store/Store.js';
 
 export default observer(class CategoryList extends Component {
   render() {
+    // console.log(Store.categories);
     return (
       <Container>
         <Text style={styles.intro}>أهلاً بك في عالم المتفلسفين</Text>
           <Content padder>
-            <List
-              dataArray={Store.categories.slice()}
-              renderRow={(category) => <CategoryCard category={category} />}
+            <List dataArray={Store.categories.slice()}
+                  renderRow={(category) => <CategoryCard category={category} />}
             />
           </Content>
       </Container>
