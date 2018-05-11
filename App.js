@@ -1,7 +1,8 @@
-import { Container } from 'native-base';
+import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { I18nManager } from 'react-native';
 import { NativeRouter, Route, Switch } from 'react-router-native';
+import { Button, Container, Content, Root, Text, Toast } from 'native-base';
 
 import FeedPage from './Components/FeedPage.js';
 import HeaderStyle from './Components/HeaderStyle.js';
@@ -23,33 +24,40 @@ import CategoryFollowersList from './Components/Category/Followers/CategoryFollo
 
 I18nManager.forceRTL(true);
 
-export default class App extends Component {
+export default observer(class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showToast: false
+    };
+  }
   render() {
     return (
       <NativeRouter>
-        <Container>
-          <HeaderStyle />
-          <Switch>
-            <Route exact path='/' component={FeedPage} />
+        <Root>
+          <Container>
+            <HeaderStyle />
+            <Switch>
+              <Route exact path='/' component={FeedPage} />
 
-            <Route path='/signin' component={SigninPage} />
-            <Route path='/signup' component={SignupPage} />
-            <Route path='/profile' component={ProfilePage} />
+              <Route path='/signin' component={SigninPage} />
+              <Route path='/signup' component={SignupPage} />
+              <Route path='/profile' component={ProfilePage} />
 
-            <Route path='/questionlist' component={QuestionList} />
-            <Route path='/questiondetail/:questionID' component={QuestionDetail} />
+              <Route path='/questionlist' component={QuestionList} />
+              <Route path='/questiondetail/:questionID' component={QuestionDetail} />
 
-            <Route path='/askquestion' component={AskQuestionCard} />
-            <Route path='/answerquestion' component={AnswerQuestionCard} />
+              <Route path='/askquestion' component={AskQuestionCard} />
+              <Route path='/answerquestion/:questionID' component={AnswerQuestionCard} />
 
-            <Route path='/categorylist' component={CategoryList} />
-            <Route path='/categorydetail/:categoryID' component={CategoryDetail} />
-            <Route path='/categoryfollowerslist' component={CategoryFollowersList} />
-
-          </Switch>
-          <FooterStyle />
-        </Container>
+              <Route path='/categorylist' component={CategoryList} />
+              <Route path='/categorydetail/:categoryID' component={CategoryDetail} />
+              <Route path='/categoryfollowerslist/:categoryID' component={CategoryFollowersList} />
+            </Switch>
+            <FooterStyle />
+          </Container>
+        </Root>
       </NativeRouter>
     );
   }
-}
+})

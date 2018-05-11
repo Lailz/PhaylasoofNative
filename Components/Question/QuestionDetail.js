@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-native';
 import { Body, Button, Card, CardItem, Container, Content, Left, List, Right, Text, Thumbnail } from "native-base";
 
+import styles from '../../styles.js';
 import Store from '../Store/Store.js';
 import AnswerCard from '../Answer/AnswerCard.js';
 
@@ -30,15 +31,15 @@ export default observer(class QuestionDetail extends Component {
       <Container>
         <Content padder>
           <Body>
-            <Text style = {styles.title}>{category.category_title}</Text>
+            <Text style = {styles.categorytitle}>{category.category_title}</Text>
             <Text  style = {styles.question}>
               {question.question_content}
               {"\n"}
             </Text>
-            <Link to='/answerquestion' component={Button} small style={styles.card}>
-              <Text> جاوب </Text>
+            <Link to={`/answerquestion/${question.id}`} component={Button} small bordered style={styles.borderedbutton}>
+              <Text style={styles.borderedbuttontext}> جاوب </Text>
             </Link>
-            <Text style={styles.later}> جاوب لاحقاً </Text>
+            <Text style={styles.followquestion}> تابع السؤال </Text>
           </Body>
           <Body>
             <List dataArray={Store.answers.slice()}
@@ -49,30 +50,4 @@ export default observer(class QuestionDetail extends Component {
       </Container>
     );
   }
-})
-
-const styles = StyleSheet.create({
-  answerprofile: {
-    color: '#739B93',
-    fontSize: 14,
-  },
-  bestanswer: {
-    color: '#739B93',
-    fontSize: 18,
-  },
-  card: {
-    backgroundColor: '#B4A298',
-  },
-  later: {
-    color: '#C9BDA7',
-    fontSize: 12,
-  },
-  question: {
-    color: '#528D95',
-    marginBottom: 10,
-  },
-  title: {
-    textAlign: 'right',
-    color: '#528D95',
-  },
 })

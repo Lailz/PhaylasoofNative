@@ -2,14 +2,16 @@ import axios from 'axios';
 import { extendObservable } from "mobx";
 import { AsyncStorage } from 'react-native';
 import jwt_decode from 'jwt-decode';
+import { Toast } from 'native-base';
 
 class myStore {
   constructor() {
     extendObservable(this, {
-      currentUser : "",
+      currentUser : [],
       token : "",
       error : [],
 
+      userr : [],
       username : "",
       password : "",
       firstname: "",
@@ -18,6 +20,7 @@ class myStore {
       user : "",
 
       category : "",
+      categoryid : "",
       question : "",
       questionid : "",
       answer : "",
@@ -35,6 +38,7 @@ class myStore {
       },
 
       categoryFollowers : [],
+      questionFollowers : [],
       userFollowers : [],
       userFollowing : [],
     })
@@ -42,7 +46,6 @@ class myStore {
 
 
   register() {
-    console.log(this.username);
     return axios.post('http://127.0.0.1:8000/api/register/', {
       username: this.username,
       first_name: this.firstname,
@@ -50,8 +53,17 @@ class myStore {
       email: this.email,
       password: this.password,
     })
-    .then(res => res.data)
-    .then(() => {
+    .then(res => {
+      res.data;
+    })
+    .then(({user}) => {
+      console.log(res.data);
+      AsyncStorage.setItem("currentUser", user.username);
+      AsyncStorage.setItem("token", user.token);
+      this.currentUser = user.username;
+      this.token = user.token;
+      console.log(user);
+      this.user = jwt_decode(token);
       this.resetForm();
     })
     .catch(err => {
@@ -73,7 +85,7 @@ class myStore {
       this.user = jwt_decode(token);
       this.resetForm();
       console.log(this.token);
-      console.log('User is', this.user.user_id);
+      console.log('User is', this.user);
     })
     .catch(err => {
       console.log(err.response.data)
@@ -92,6 +104,7 @@ class myStore {
     this.username = "";
     this.firstname = "";
     this.lastname = "";
+    this.email = "";
     this.password = "";
     this.question = "";
     this.category = "";
@@ -108,12 +121,15 @@ class myStore {
       .then(categories => {
         this.categories = categories;
       })
-      .catch(err => console.error(err));
+      .catch(err => Toast.show({
+        text: "اختبااار",
+        buttonText: "Okay",
+        position: "bottom"
+      }));
       }
 
   getCategoryByID(id) {
     const categoryIndex = this.categories.findIndex(category => category.id == id);
-    console.log(this.categories)
     if(typeof this.categories[categoryIndex].questions === 'string') {
       this.fetchQuestions(this.categories[categoryIndex].questions)
         .then(questions => this.categories[categoryIndex].questions = questions)
@@ -145,7 +161,7 @@ class myStore {
     const ask = { question_content: this.question,
       user: this.user.user_id,
       category: this.category }
-      console.log(ask);
+      // console.log(ask);
     return axios.post('http://127.0.0.1:8000/api/question/create/',
       ask,
       {headers: {Authorization: `JWT ${this.token}`}},
@@ -155,7 +171,11 @@ class myStore {
         this.questions.push(ask);
         this.resetForm();
       })
-      .catch(err => console.error(err));
+      .catch(err => Toast.show({
+        text: "Hii",
+        buttonText: "Okay",
+        position: "top"
+      }));
   }
 
   getQuestionByID(id) {
@@ -177,8 +197,7 @@ class myStore {
     const answer = {
       answer_content: this.answer,
       user: this.user.user_id,
-      question: this.question }
-    console.log(answer);
+      question: this.questionid }
     return axios.post('http://127.0.0.1:8000/api/answer/create/',
       answer,
       {headers: {Authorization: `JWT ${this.token}`}},
@@ -188,7 +207,11 @@ class myStore {
         this.answers.push(answer);
         this.resetForm();
       })
-      .catch(err => console.error(err));
+      .catch(err => Toast.show({
+        text: "Hii",
+        buttonText: "Okay",
+        position: "top"
+      }));
     }
 
   fetchCategoryFollowers(categoryFollowersUrl) {
@@ -200,12 +223,28 @@ class myStore {
       .catch(err => console.error(err));
   }
 
+  storeCategoryFollower() {
+    const category = {category: this.categoryid}
+    return axios.post('http://127.0.0.1:8000/api/follow/category/',
+      {category: this.categoryid},
+      {headers: {Authorization: `JWT ${this.token}`}},
+    )
+      .then(res => res.data)
+      .then( follower => {
+        console.log(this.currentUser);
+        this.categoryFollowers.push(this.user);
+        this.resetForm();
+      }).catch(err => Toast.show({
+        text: "Hii",
+        buttonText: "Okay",
+        position: "top"
+      }));
+  }
+
   getFollowersByCategoryID(id) {
     return this.categoryFollowers.find(follower => follower.category == id);
   }
   }
-
-
 
   const Store =  new myStore()
   Store.fetchCategories()

@@ -4,6 +4,7 @@ import { Link } from 'react-router-native';
 import { Badge, Button, Footer, FooterTab, Icon, Text } from 'native-base';
 import Store from './Store/Store.js';
 
+import styles from '../styles.js';
 
 export default class FooterStyle extends Component {
   render() {
@@ -36,33 +37,3 @@ export default class FooterStyle extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  headerstyle: {
-    backgroundColor: '#528D95',
-  },
-
-  askiconbg: {
-    backgroundColor: 'white',
-  },
-
-  askicon: {
-        color: 'white',
-        fontSize: 40,
-  },
-
-  askicontext: {
-  color: '#528D95',
-  fontSize: 12,
-  },
-
-  icon: {
-  color: 'white',
-  },
-
-  icontext: {
-  color: 'white',
-  fontSize: 12,
-  },
-
-});

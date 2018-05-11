@@ -2,8 +2,11 @@ import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
-import { Body, Button, Card, CardItem, Content, Text, List } from "native-base";
+import { Body, Button, Card, CardItem, Content, List, Text } from "native-base";
+
 import Store from '../../Store/Store.js';
+import styles from '../../../styles.js';
+
 
 export default observer(class QuestionCard extends Component {
 
@@ -14,7 +17,7 @@ export default observer(class QuestionCard extends Component {
           <Card>
             <Link to={`/categorydetail/${question.category.id}`} component={CardItem} button>
               <Body>
-                <Text style={styles.category}>{question.category_title}</Text>
+                <Text style={styles.cardtitle}>{question.category.category_title}</Text>
               </Body>
             </Link>
             <Link to={`/questiondetail/${question.id}`} component={CardItem} button>
@@ -24,39 +27,24 @@ export default observer(class QuestionCard extends Component {
                   </Text>
               </Body>
             </Link>
-            <Link to={`/questiondetail/${question.id}`} component={CardItem} button>
-                <Text style={styles.numberofanswers}>{question.numberOfAnswers} أجوبة</Text>
-            </Link>
-            <CardItem button>
-              <Link to={'/answerquestion'} component={Button} small style={styles.card}><Text> جاوب </Text></Link>
+            <CardItem>
+              <Link to={`/questiondetail/${question.id}`} component={CardItem} button>
+                  <Text style={styles.counting}>{question.answers_number} جواب</Text>
+              </Link>
+              <Link to={`/categoryfollowerslist/${question.category.id}`} component={CardItem} button>
+                <Text style={styles.counting}>{question.followers_number} متابع</Text>
+              </Link>
+            </CardItem>
+
+            <CardItem>
+              <Link to={`/answerquestion/${question.id}`} component={Button} small bordered style={styles.borderedbutton}>
+                <Text style={styles.borderedbuttontext}> جاوب </Text>
+              </Link>
               <Text>    </Text>
-              <Text style={styles.later}> جاوب لاحقاً </Text>
+              <Text style={styles.followquestion}> تابع السؤال </Text>
             </CardItem>
           </Card>
         </Content>
     );
   }
-})
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#B4A298',
-  },
-  category: {
-    textAlign: 'right',
-    color: '#528D95',
-    fontSize: 14,
-  },
-  content: {
-    textAlign: 'right',
-    color: '#528D95',
-  },
-  later: {
-    color: '#C9BDA7',
-    fontSize: 12,
-  },
-  numberofanswers: {
-    color: '#C9BDA7',
-    fontSize: 14,
-  },
 })

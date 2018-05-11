@@ -1,8 +1,10 @@
+import {observer} from 'mobx-react';
 import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
-import {observer} from 'mobx-react';
-import { Body, Button, Card, CardItem, Container, Content, Left, Right, Thumbnail, Text, List } from "native-base";
+import { Link } from 'react-router-native';
+import { Body, Button, Card, CardItem, Container, Content, Left, List, Right, Thumbnail, Text } from "native-base";
 
+import styles from '../../styles.js';
 import Store from '../Store/Store.js';
 import QuestionCard from '../Question/Cards/QuestionCard.js';
 
@@ -11,48 +13,34 @@ export default observer(class CategoryDetail extends Component {
     const categoryID = this.props.match.params.categoryID;
     const category = Store.getCategoryByID(categoryID);
     const questions = typeof category.questions === 'string' ? [] : category.questions.slice();
+    console.log(category.id);
     return (
       <Container>
-        <Content padder >
-              <Body>
-                {/* <Thumbnail bordered source={{uri: this.state.category.image}}/> */}
-                <Text style={styles.title}>{category.category_title}</Text>
-                <Text  style = {{color: '#528D95'}}>
-                  {category.category_description}
-                  {"\n"}
-                </Text>
-                <Button small style={styles.card}><Text> تابع </Text></Button>
-                <List dataArray = {questions}
-                      renderRow = {(question) => <QuestionCard question={question} />}
-                />
-              </Body>
+        <Content padder>
+          <Right>
+            <Thumbnail bordered source={{uri: category.image}}/>
+          </Right>
+          <Left>
+            <Text style={styles.maintitle}>{category.category_title}</Text>
+          </Left>
+          <Body>
+            <Text style = {styles.content}> {category.category_description} {"\n"}</Text>
+            <Text style={styles.counting}>{category.questions_number} سؤال</Text>
+              <Text>{"\t"}</Text>
+              <Link to={`/categoryfollowerslist/${category.id}`} component={Text} button>
+                <Text style={styles.counting}>{category.followers_number} متابع</Text>
+              </Link>
+            <Button small bordered style={styles.borderedbutton}>
+              <Text style={styles.borderedbuttontext}> تابع </Text>
+            </Button>
+          </Body>
+          <Body>
+            <List dataArray = {questions}
+                  renderRow = {(question) => <QuestionCard question={question} />}
+            />
+          </Body>
         </Content>
       </Container>
     );
   }
-})
-
-const styles = StyleSheet.create({
-  title: {
-    textAlign: 'right',
-    color: '#528D95',
-    fontSize: 20,
-    marginTop: 10,
-    marginBottom: 15,
-  },
-  card: {
-    backgroundColor: '#B4A298',
-  },
-  answerprofile: {
-    color: '#739B93',
-    fontSize: 14,
-  },
-  bestanswer: {
-    color: '#739B93',
-    fontSize: 18,
-  },
-  later: {
-    color: '#C9BDA7',
-    fontSize: 12,
-  },
 })

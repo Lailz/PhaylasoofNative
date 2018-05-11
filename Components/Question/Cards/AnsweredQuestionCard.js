@@ -12,12 +12,12 @@ export default class AnsweredQuestionCard extends Component {
           <Card>
             <CardItem bordered button onPress={() => alert("هممممممم")}>
               <Body>
-                <Text style={{textAlign: 'right', color: '#528D95'}}>علم البحار</Text>
+                <Text style={{textAlign: 'right', color: '#6C788E'}}>علم البحار</Text>
               </Body>
             </CardItem>
             <CardItem button onPress={() => alert("هممممممم")}>
               <Body>
-                  <Text  style = {{color: '#528D95'}}>
+                  <Text  style = {{color: '#6C788E'}}>
                     {list[0].question}
                   </Text>
               </Body>
@@ -36,7 +36,7 @@ export default class AnsweredQuestionCard extends Component {
             <CardItem button>
               <Button small style={styles.card} onPress={() => alert("تم حفظ الإجابة")}><Text> جاوب </Text> </Button>
               <Text>    </Text>
-              <Text style={styles.later}> جاوب لاحقاً </Text>
+              <Text style={styles.followquestion}> تابع السؤال </Text>
             </CardItem>
           </Card>
         </Content>
@@ -47,7 +47,7 @@ export default class AnsweredQuestionCard extends Component {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#B4A298',
+    backgroundColor: '#A6AEC1',
   },
   answerprofile: {
     color: '#739B93',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     color: '#739B93',
     fontSize: 18,
   },
-  later: {
+  followquestion: {
     color: '#C9BDA7',
     fontSize: 12,
   },

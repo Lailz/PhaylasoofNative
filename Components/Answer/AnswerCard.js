@@ -29,11 +29,11 @@ export default observer(class AnswerCard extends Component {
 const styles = StyleSheet.create({
   answer: {
     textAlign: 'right',
-    color: '#528D95',
+    color: '#6C788E',
     fontSize: 14,
   },
   card: {
-    backgroundColor: '#B4A298',
+    backgroundColor: '#A6AEC1',
   },
   time: {
     color: '#739B93',
