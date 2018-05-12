@@ -7,17 +7,21 @@ import { Toast } from 'native-base';
 class myStore {
   constructor() {
     extendObservable(this, {
-      currentUser : [],
-      token : "",
+      currentUser : {
+        username : '',
+        firstname : '',
+        lastname : '',
+      },
+      token : '',
       error : [],
 
-      userr : [],
       username : "",
       password : "",
       firstname: "",
       lastname : "",
       email : "",
       user : "",
+      profile : {},
 
       category : "",
       categoryid : "",
@@ -44,7 +48,6 @@ class myStore {
     })
   }
 
-
   register() {
     return axios.post('http://127.0.0.1:8000/api/register/', {
       username: this.username,
@@ -55,20 +58,24 @@ class myStore {
     })
     .then(res => {
       res.data;
+      return res.data
     })
-    .then(({user}) => {
-      console.log(res.data);
-      AsyncStorage.setItem("currentUser", user.username);
-      AsyncStorage.setItem("token", user.token);
-      this.currentUser = user.username;
-      this.token = user.token;
-      console.log(user);
-      this.user = jwt_decode(token);
+    .then((res) => {
+      console.log("Hi, its me: ", res);
+      AsyncStorage.setItem("currentUser", res.username);
+      this.currentUser = res.username;
+      this.token = res.token;
+      console.log("Its me again", this.currentUser);
+      this.user = jwt_decode(res.token);
+      this.fetchProfile(this.user.user_id);
+      console.log('User is', this.profile);
       this.resetForm();
     })
-    .catch(err => {
-      console.log(err.response.data)
-      });
+    .catch(err => Toast.show({
+      text: "عذراً.. حاول مرة أخرى",
+      buttonText: "Okay",
+      position: "bottom"
+    }));
   }
 
   signin() {
@@ -76,21 +83,39 @@ class myStore {
       username: this.username,
       password: this.password,
     })
-    .then(res => res.data)
-    .then(({username, token}) => {
-      AsyncStorage.setItem("currentUser", username);
-      AsyncStorage.setItem("token", token);
-      this.currentUser = username;
-      this.token = token;
-      this.user = jwt_decode(token);
-      this.resetForm();
-      console.log(this.token);
-      console.log('User is', this.user);
+    .then(res => {
+      res.data;
+      return res.data
     })
-    .catch(err => {
-      console.log(err.response.data)
-      });
+    .then((res) => {
+      AsyncStorage.setItem("currentUser", res.username);
+      this.currentUser = res.username;
+      this.token = res.token;
+      this.user = jwt_decode(res.token);
+      this.fetchProfile(this.user.user_id);
+      console.log('ID: ', this.user.user_id);
+      console.log('User is', this.profile);
+      this.resetForm();
+    })
+    .catch(err => Toast.show({
+      text: "عذراً.. حاول مرة أخرى",
+      buttonText: "Okay",
+      position: "bottom"
+    }));
   }
+
+  fetchProfile(userID) {
+    return axios.get(`http://127.0.0.1:8000/api/profile/${userID}`)
+      .then(res => res.data)
+      .then(profile => {
+        this.profile = profile;
+      })
+      .catch(err => Toast.show({
+        text: "عذراً.. حاول مرة أخرى",
+        buttonText: "Okay",
+        position: "bottom"
+      }));
+    }
 
   logout() {
     AsyncStorage.removeItem("currentUser");
@@ -122,7 +147,7 @@ class myStore {
         this.categories = categories;
       })
       .catch(err => Toast.show({
-        text: "اختبااار",
+        text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
         position: "bottom"
       }));
@@ -154,7 +179,11 @@ class myStore {
   fetchQuestions(questionsUrl) {
     return axios.get(questionsUrl)
       .then(res => res.data)
-      .catch(err => console.error(err));
+      .catch(err => Toast.show({
+        text: "عذراً.. حاول مرة أخرى",
+        buttonText: "Okay",
+        position: "bottom"
+      }));
     }
 
   storeQuestion() {
@@ -172,9 +201,9 @@ class myStore {
         this.resetForm();
       })
       .catch(err => Toast.show({
-        text: "Hii",
+        text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
-        position: "top"
+        position: "bottom"
       }));
   }
 
@@ -189,7 +218,11 @@ class myStore {
         .then(answers => {
           this.answers = answers;
         })
-        .catch(err => console.error(err));
+        .catch(err => Toast.show({
+          text: "عذراً.. حاول مرة أخرى",
+          buttonText: "Okay",
+          position: "bottom"
+        }));
       }
     }
 
@@ -208,9 +241,9 @@ class myStore {
         this.resetForm();
       })
       .catch(err => Toast.show({
-        text: "Hii",
+        text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
-        position: "top"
+        position: "bottom"
       }));
     }
 
@@ -220,7 +253,11 @@ class myStore {
       .then(followers => {
         this.categoryFollowers = followers;
       })
-      .catch(err => console.error(err));
+      .catch(err => Toast.show({
+        text: "عذراً.. حاول مرة أخرى",
+        buttonText: "Okay",
+        position: "bottom"
+      }));
   }
 
   storeCategoryFollower() {
@@ -235,17 +272,16 @@ class myStore {
         this.categoryFollowers.push(this.user);
         this.resetForm();
       }).catch(err => Toast.show({
-        text: "Hii",
+        text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
-        position: "top"
+        position: "bottom"
       }));
   }
 
   getFollowersByCategoryID(id) {
     return this.categoryFollowers.find(follower => follower.category == id);
   }
-  }
-
+}
   const Store =  new myStore()
   Store.fetchCategories()
 

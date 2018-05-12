@@ -10,7 +10,10 @@ import FooterStyle from './Components/FooterStyle.js';
 
 import SigninPage from './Components/Authentication/SigninPage.js';
 import SignupPage from './Components/Authentication/SignupPage.js';
-import ProfilePage from './Components/Authentication/ProfilePage.js';
+
+import ProfilePage from './Components/Profile/ProfilePage.js';
+import EditProfile from './Components/Profile/EditProfile.js';
+import SignupProfilePage from './Components/Profile/SignupProfilePage.js';
 
 import QuestionList from './Components/Question/QuestionList.js';
 import QuestionDetail from './Components/Question/QuestionDetail.js';
@@ -42,7 +45,10 @@ export default observer(class App extends Component {
 
               <Route path='/signin' component={SigninPage} />
               <Route path='/signup' component={SignupPage} />
+              
               <Route path='/profile' component={ProfilePage} />
+              <Route path='/signupprofile' component={SignupProfilePage} />
+              <Route path='/editprofile' component={EditProfile} />
 
               <Route path='/questionlist' component={QuestionList} />
               <Route path='/questiondetail/:questionID' component={QuestionDetail} />

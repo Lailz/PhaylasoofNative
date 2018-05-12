@@ -11,6 +11,7 @@ export default observer(class CategoryCard extends Component {
   render() {
     const category = this.props.category;
     Store.categoryid = category.id;
+    console.log(category);
     return (
           <Card>
             <Link to={`/categorydetail/${category.id}`} component={CardItem} button >

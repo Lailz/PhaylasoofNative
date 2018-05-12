@@ -13,7 +13,7 @@ export default observer(class CategoryDetail extends Component {
     const categoryID = this.props.match.params.categoryID;
     const category = Store.getCategoryByID(categoryID);
     const questions = typeof category.questions === 'string' ? [] : category.questions.slice();
-    console.log(category.id);
+    console.log(questions);
     return (
       <Container>
         <Content padder>

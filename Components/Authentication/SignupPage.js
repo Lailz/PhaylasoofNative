@@ -11,7 +11,7 @@ export default observer(class SignupPage extends Component {
   render() {
     return (
         <View style={styles.authcontainer}>
-          <Text style={styles.authtitle}>أنشئ حساباً جديداً</Text>
+          <Text style={styles.authtitle}>إنشاء حساب جديد</Text>
           <TextInput style={styles.authtextinput} placeholder="اسم المستخدم" placeholderTextColor='#A6AEC1'
                      value={Store.username}
                      onChangeText={(e) => {Store.username = e}}/>
@@ -28,7 +28,7 @@ export default observer(class SignupPage extends Component {
                      value={Store.password}
                      onChangeText={(e) => {Store.password = e}} />
           <TouchableOpacity style={styles.authbuttonstyle} onPress={() => Store.register()}>
-            <Text style={styles.authbuttontext}>سجل</Text>
+            <Text style={styles.authbuttontext}>أنشئ حسابك</Text>
           </TouchableOpacity>
           <Link to='./signin' component={Button} transparent>
             <Text style={styles.authother}>

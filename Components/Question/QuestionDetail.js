@@ -30,12 +30,12 @@ export default observer(class QuestionDetail extends Component {
     return (
       <Container>
         <Content padder>
-          <Body>
-            <Text style = {styles.categorytitle}>{category.category_title}</Text>
+          <Body>            
             <Text  style = {styles.question}>
               {question.question_content}
               {"\n"}
             </Text>
+            <Text style = {styles.categorytitle}>{category.category_title}</Text>
             <Link to={`/answerquestion/${question.id}`} component={Button} small bordered style={styles.borderedbutton}>
               <Text style={styles.borderedbuttontext}> جاوب </Text>
             </Link>

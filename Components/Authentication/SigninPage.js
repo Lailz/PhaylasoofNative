@@ -21,7 +21,7 @@ export default observer(class SigninPage extends Component {
         <TouchableOpacity style={styles.authbuttonstyle} onPress={() => Store.signin()}>
           <Text style={styles.authbuttontext}>سجل دخولك</Text>
         </TouchableOpacity>
-        <Link to='/signup' component={Button} transparent>
+        <Link to='/signupprofile' component={Button} transparent>
           <Text style={styles.authother}>
             ألا تمتلك حساباً؟ سجل الآن!
           </Text>

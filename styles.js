@@ -97,6 +97,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
+  follow: {
+    color: '#29799E',
+    fontSize: 14,
+  },
+
   headerfootericon: {
   color: '#FCFDFF',
   },
@@ -124,6 +129,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
+  profileimage: {
+    height: 50,
+    width: 150,
+    flex: 0.5,
+    marginBottom: 10,
+  },
+
+  profiletext: {
+    textAlign: 'right',
+    color: '#6C788E',
+    fontSize: 16,
+  },
+
   question: {
     color: '#6C788E',
     marginBottom: 10,
@@ -132,9 +150,19 @@ const styles = StyleSheet.create({
   textarea: {
     height: 75,
     width: 325,
-    color: '#A6AEC1',
+    color: '#6C788E',
     borderColor: '#A6AEC1',
     textAlign: 'right'
+  },
+
+  voteicon: {
+    fontSize: 14,
+    color: '#29799E',
+  },
+
+  votetext: {
+    fontSize: 14,
+    color: '#29799E',
   },
 })
 

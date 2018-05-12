@@ -17,13 +17,14 @@ export default observer(class AskQuestion extends Component {
   }
 
   SaveAnswer() {
-    Store.questionid = questionID;
+    Store.questionid = this.state.questionID;
     Store.storeAnswer().then(
       () => this.props.history.push('/questionlist')
     );
   }
 
   render() {
+    console.log('The question id in AnswerQuestion is: ', this.state.questionID);
     return (
       <Container>
         <Content padder>
@@ -53,7 +54,7 @@ export default observer(class AskQuestion extends Component {
                 <Text style={styles.borderedbuttontext}> جاوب </Text>
               </Button>
               <Text>  </Text>
-              <Button small bordered style={styles.borderedbuttontext} onPress={() => this.props.history.goBack()}>
+              <Button small bordered style={styles.borderedbutton} onPress={() => this.props.history.goBack()}>
                 <Text style={styles.borderedbuttontext}> إلغاء </Text>
               </Button>
             </CardItem>
