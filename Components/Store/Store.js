@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { extendObservable } from "mobx";
-import { AsyncStorage } from 'react-native';
 import jwt_decode from 'jwt-decode';
 import { Toast } from 'native-base';
+import profiledefault from '../../images/Portrait.png';
+import { extendObservable } from "mobx";
+import { AsyncStorage } from 'react-native';
+
 
 class myStore {
   constructor() {
@@ -61,14 +63,11 @@ class myStore {
       return res.data
     })
     .then((res) => {
-      console.log("Hi, its me: ", res);
-      AsyncStorage.setItem("currentUser", res.username);
+      // AsyncStorage.setItem("currentUser", res.username);
       this.currentUser = res.username;
       this.token = res.token;
-      console.log("Its me again", this.currentUser);
       this.user = jwt_decode(res.token);
       this.fetchProfile(this.user.user_id);
-      console.log('User is', this.profile);
       this.resetForm();
     })
     .catch(err => Toast.show({
@@ -88,13 +87,11 @@ class myStore {
       return res.data
     })
     .then((res) => {
-      AsyncStorage.setItem("currentUser", res.username);
+      // AsyncStorage.setItem("currentUser", res.username);
       this.currentUser = res.username;
       this.token = res.token;
       this.user = jwt_decode(res.token);
       this.fetchProfile(this.user.user_id);
-      console.log('ID: ', this.user.user_id);
-      console.log('User is', this.profile);
       this.resetForm();
     })
     .catch(err => Toast.show({
@@ -110,6 +107,9 @@ class myStore {
       .then(profile => {
         this.profile = profile;
       })
+      .then(() => {
+        (this.profile.image == null) ? this.profile.image = profiledefault;
+      })
       .catch(err => Toast.show({
         text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
@@ -117,11 +117,16 @@ class myStore {
       }));
     }
 
+  // getProfileByID(id) {
+  //   return this.profile.find(profile => profile.id == id);
+  // }
+
   logout() {
-    AsyncStorage.removeItem("currentUser");
-    AsyncStorage.removeItem("token");
+    // AsyncStorage.removeItem("currentUser");
+    // AsyncStorage.removeItem("token");
     this.currentUser = null;
     this.token = null;
+    this.profile = {};
   }
 
   resetForm() {
@@ -240,6 +245,9 @@ class myStore {
         this.answers.push(answer);
         this.resetForm();
       })
+      .then(() => {
+        this.getQuestionByID(this.questionid).answers_number += 1;
+      })
       .catch(err => Toast.show({
         text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
@@ -270,8 +278,26 @@ class myStore {
       .then( follower => {
         console.log(this.currentUser);
         this.categoryFollowers.push(this.user);
+        console.log('followers', follower);
         this.resetForm();
-      }).catch(err => Toast.show({
+      })
+      .then(() => {
+        this.getCategoryByID(this.categoryid).followers_number += 1;
+      })
+      .catch(err => Toast.show({
+        text: "عذراً.. حاول مرة أخرى",
+        buttonText: "Okay",
+        position: "bottom"
+      }));
+  }
+
+  fetchQuestionFollowers(questionFollowersUrl) {
+    return axios.get(questionFollowersUrl)
+      .then(res => res.data)
+      .then(followers => {
+        this.questionFollowers = followers;
+      })
+      .catch(err => Toast.show({
         text: "عذراً.. حاول مرة أخرى",
         buttonText: "Okay",
         position: "bottom"

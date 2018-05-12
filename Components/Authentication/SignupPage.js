@@ -15,13 +15,13 @@ export default observer(class SignupPage extends Component {
           <TextInput style={styles.authtextinput} placeholder="اسم المستخدم" placeholderTextColor='#A6AEC1'
                      value={Store.username}
                      onChangeText={(e) => {Store.username = e}}/>
-          <TextInput style={styles.authtextinput} placeholder="الاسم الأول (اختياري)" placeholderTextColor='#A6AEC1'
+          <TextInput style={styles.authtextinput} placeholder="الاسم الأول" placeholderTextColor='#A6AEC1'
                      value={Store.firstname}
                      onChangeText={(e) => {Store.firstname = e}} />
-          <TextInput style={styles.authtextinput} placeholder="اسم العائلة (اختياري)" placeholderTextColor='#A6AEC1'
+          <TextInput style={styles.authtextinput} placeholder="اسم العائلة" placeholderTextColor='#A6AEC1'
                      value={Store.lastname}
                      onChangeText={(e) => {Store.lastname = e}} />
-          <TextInput style={styles.authtextinput} placeholder="البريد الإلكتروني (اختياري)" placeholderTextColor='#A6AEC1'
+          <TextInput style={styles.authtextinput} placeholder="البريد الإلكتروني" placeholderTextColor='#A6AEC1'
                      value={Store.email}
                      onChangeText={(e) => {Store.email = e}} />
           <TextInput style={styles.authtextinput} placeholder="كلمة السر" placeholderTextColor='#A6AEC1' secureTextEntry={true}

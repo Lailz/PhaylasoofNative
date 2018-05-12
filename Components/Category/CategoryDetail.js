@@ -9,11 +9,13 @@ import Store from '../Store/Store.js';
 import QuestionCard from '../Question/Cards/QuestionCard.js';
 
 export default observer(class CategoryDetail extends Component {
+
   render() {
     const categoryID = this.props.match.params.categoryID;
     const category = Store.getCategoryByID(categoryID);
     const questions = typeof category.questions === 'string' ? [] : category.questions.slice();
     console.log(questions);
+
     return (
       <Container>
         <Content padder>
@@ -33,8 +35,6 @@ export default observer(class CategoryDetail extends Component {
             <Button small bordered style={styles.borderedbutton}>
               <Text style={styles.borderedbuttontext}> تابع </Text>
             </Button>
-          </Body>
-          <Body>
             <List dataArray = {questions}
                   renderRow = {(question) => <QuestionCard question={question} />}
             />

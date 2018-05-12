@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import React, { Component } from 'react';
-import { I18nManager } from 'react-native';
+// import { I18nManager } from 'react-native';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 import { Button, Container, Content, Root, Text, Toast } from 'native-base';
 
@@ -17,6 +17,7 @@ import SignupProfilePage from './Components/Profile/SignupProfilePage.js';
 
 import QuestionList from './Components/Question/QuestionList.js';
 import QuestionDetail from './Components/Question/QuestionDetail.js';
+import QuestionFollowersList from './Components/Question/QuestionFollowersList.js';
 
 import AskQuestionCard from './Components/Question/Cards/AskQuestionCard.js';
 import AnswerQuestionCard from './Components/Answer/AnswerQuestionCard.js';
@@ -25,7 +26,7 @@ import CategoryList from './Components/Category/CategoryList.js';
 import CategoryDetail from './Components/Category/CategoryDetail.js';
 import CategoryFollowersList from './Components/Category/Followers/CategoryFollowersList.js';
 
-I18nManager.forceRTL(true);
+// I18nManager.forceRTL(true);
 
 export default observer(class App extends Component {
   constructor(props) {
@@ -45,13 +46,14 @@ export default observer(class App extends Component {
 
               <Route path='/signin' component={SigninPage} />
               <Route path='/signup' component={SignupPage} />
-              
+
               <Route path='/profile' component={ProfilePage} />
               <Route path='/signupprofile' component={SignupProfilePage} />
               <Route path='/editprofile' component={EditProfile} />
 
               <Route path='/questionlist' component={QuestionList} />
               <Route path='/questiondetail/:questionID' component={QuestionDetail} />
+              <Route path='/questionfollowerslist/:questionID' component={QuestionFollowersList} />
 
               <Route path='/askquestion' component={AskQuestionCard} />
               <Route path='/answerquestion/:questionID' component={AnswerQuestionCard} />

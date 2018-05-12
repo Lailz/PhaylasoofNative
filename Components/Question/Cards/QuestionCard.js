@@ -12,6 +12,7 @@ export default observer(class QuestionCard extends Component {
 
   render() {
     const question = this.props.question;
+    console.log('Followers Number: ', question);
     return (
         <Content padder>
           <Card>
@@ -28,16 +29,15 @@ export default observer(class QuestionCard extends Component {
               </Body>
             </Link>
             <CardItem>
-              <Link to={`/questiondetail/${question.id}`} component={CardItem} button>
+              <Link to={`/questiondetail/${question.id}`} component={Text} button>
                   <Text style={styles.counting}>{question.answers_number} جواب</Text>
               </Link>
-              <Link to={`/categoryfollowerslist/${question.category.id}`} component={CardItem} button>
-                <Text style={styles.counting}>{question.followers_number} متابع</Text>
+              <Link to={`/questionfollowerslist/${question.id}`} component={Text} button>
+                <Text style={styles.counting}>    {question.followers_number} متابع</Text>
               </Link>
                 <Text style={styles.votetext}><Icon style={styles.voteicon} type="FontAwesome" name="thumbs-up" />{question.upvotes}{'    '}</Text>
                 <Text style={styles.votetext}><Icon style={styles.voteicon} type="FontAwesome" name="thumbs-down" />{question.downvotes}{'     '}</Text>
             </CardItem>
-
             <CardItem>
               <Link to={`/answerquestion/${question.id}`} component={Button} small bordered style={styles.borderedbutton}>
                 <Text style={styles.borderedbuttontext}> جاوب </Text>
@@ -47,6 +47,7 @@ export default observer(class QuestionCard extends Component {
             </CardItem>
           </Card>
         </Content>
+
     );
   }
 })

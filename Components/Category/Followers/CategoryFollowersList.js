@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Card, Container, Content, List, Text } from "native-base";
+import { Card, Container, Content, List, Text, Thumbnail } from "native-base";
 
 import styles from '../../../styles.js';
 import Store from '../../Store/Store.js';
@@ -24,6 +24,7 @@ export default observer(class CategoryFollowersList extends Component {
   }
 
   render() {
+    console.log('FOLLOWERS LIST: ', Store.categoryFollowers);
     return (
       <Container>
         <Text style={styles.maintitle}>المتابعون</Text>
@@ -32,6 +33,7 @@ export default observer(class CategoryFollowersList extends Component {
                 renderRow={(follower) => {
                   return (
                     <Card style={styles.followerslist}>
+                      <Thumbnail bordered source={{uri: follower.follower.image}}/>
                       <Text>{follower.follower.username}</Text>
                     </Card>
                   )

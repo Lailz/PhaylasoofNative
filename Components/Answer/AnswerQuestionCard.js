@@ -10,7 +10,7 @@ import Store from '../Store/Store.js';
 export default observer(class AskQuestion extends Component {
   constructor(props) {
     super(props);
-    const questionID = this.props.match.params.categoryID;
+    const questionID = this.props.match.params.questionID;
     this.state = {
       questionID : questionID,
     }
@@ -24,7 +24,6 @@ export default observer(class AskQuestion extends Component {
   }
 
   render() {
-    console.log('The question id in AnswerQuestion is: ', this.state.questionID);
     return (
       <Container>
         <Content padder>

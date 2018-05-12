@@ -75,7 +75,9 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    textAlign: 'right',
+    textAlign: 'left',
+    paddingLeft: 10,
+    paddingRight: 10,
     color: '#6C788E',
   },
 
